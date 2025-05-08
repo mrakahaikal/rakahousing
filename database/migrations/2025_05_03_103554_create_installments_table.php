@@ -19,7 +19,6 @@ return new class extends Migration
             $table->integer('sub_total_amount');
             $table->integer('grand_total_amount');
             $table->integer('insurance_amount');
-            $table->integer('duration');
             $table->string('proof')->nullable();
             $table->boolean('is_paid');
             $table->string('payment_type');

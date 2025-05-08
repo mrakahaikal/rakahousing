@@ -10,7 +10,7 @@ class Facility extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'house_id',
+        'name',
         'photo'
     ];
 }
