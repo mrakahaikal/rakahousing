@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Filament\Resources\BankResource\Pages;
+namespace App\Filament\Resources\Banks\Pages;
 
-use App\Filament\Resources\BankResource;
+use Filament\Actions\CreateAction;
+use App\Filament\Resources\Banks\BankResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ManageRecords;
 
@@ -13,7 +14,7 @@ class ManageBanks extends ManageRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            CreateAction::make(),
         ];
     }
 }

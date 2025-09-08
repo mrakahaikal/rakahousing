@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Filament\Resources\HouseResource\Pages;
+namespace App\Filament\Resources\Houses\Pages;
 
-use App\Filament\Resources\HouseResource;
+use Filament\Actions\CreateAction;
+use App\Filament\Resources\Houses\HouseResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
@@ -13,7 +14,7 @@ class ListHouses extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            CreateAction::make(),
         ];
     }
 }

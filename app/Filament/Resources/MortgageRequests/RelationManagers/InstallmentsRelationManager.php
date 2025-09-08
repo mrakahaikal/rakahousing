@@ -1,10 +1,16 @@
 <?php
 
-namespace App\Filament\Resources\MortgageRequestResource\RelationManagers;
+namespace App\Filament\Resources\MortgageRequests\RelationManagers;
 
+use Filament\Schemas\Schema;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Actions\CreateAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
 use Filament\Forms;
 use Filament\Tables;
-use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\{ToggleButtons, FileUpload, TextInput, Select, Wizard, Wizard\Step};
@@ -15,12 +21,12 @@ class InstallmentsRelationManager extends RelationManager
 {
     protected static string $relationship = 'installments';
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Wizard::make([
-                    Step::make('Installments')
+        return $schema
+            ->components([
+                \Filament\Schemas\Components\Wizard::make([
+                    \Filament\Schemas\Components\Wizard\Step::make('Installments')
                         ->schema([
                             TextInput::make('no_of_payment')
                                 ->label('No. Payment')
@@ -94,7 +100,7 @@ class InstallmentsRelationManager extends RelationManager
                                 ->prefix('IDR'),
 
                         ]),
-                    Step::make('Payment Method')
+                    \Filament\Schemas\Components\Wizard\Step::make('Payment Method')
                         ->schema([
                             ToggleButtons::make('is_paid')
                                 ->label('Payment Status')
@@ -130,21 +136,21 @@ class InstallmentsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('no_of_payment')
             ->columns([
-                Tables\Columns\TextColumn::make('no_of_payment'),
+                TextColumn::make('no_of_payment'),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                CreateAction::make(),
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+            ->recordActions([
+                EditAction::make(),
+                DeleteAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }

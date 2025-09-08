@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Filament\Resources\MortgageRequestResource\Pages;
+namespace App\Filament\Resources\MortgageRequests\Pages;
 
-use App\Filament\Resources\MortgageRequestResource;
+use Filament\Actions\CreateAction;
+use App\Filament\Resources\MortgageRequests\MortgageRequestResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
@@ -13,7 +14,7 @@ class ListMortgageRequests extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            CreateAction::make(),
         ];
     }
 }

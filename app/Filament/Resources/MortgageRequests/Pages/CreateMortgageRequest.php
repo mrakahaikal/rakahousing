@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\MortgageRequestResource\Pages;
+namespace App\Filament\Resources\MortgageRequests\Pages;
 
-use App\Filament\Resources\MortgageRequestResource;
+use App\Filament\Resources\MortgageRequests\MortgageRequestResource;
 use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 

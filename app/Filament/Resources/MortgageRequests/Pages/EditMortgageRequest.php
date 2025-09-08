@@ -1,8 +1,11 @@
 <?php
 
-namespace App\Filament\Resources\MortgageRequestResource\Pages;
+namespace App\Filament\Resources\MortgageRequests\Pages;
 
-use App\Filament\Resources\MortgageRequestResource;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\ForceDeleteAction;
+use Filament\Actions\RestoreAction;
+use App\Filament\Resources\MortgageRequests\MortgageRequestResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
@@ -13,9 +16,9 @@ class EditMortgageRequest extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
-            Actions\ForceDeleteAction::make(),
-            Actions\RestoreAction::make(),
+            DeleteAction::make(),
+            ForceDeleteAction::make(),
+            RestoreAction::make(),
         ];
     }
 }

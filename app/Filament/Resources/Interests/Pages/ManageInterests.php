@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Filament\Resources\InterestResource\Pages;
+namespace App\Filament\Resources\Interests\Pages;
 
-use App\Filament\Resources\InterestResource;
+use Filament\Actions\CreateAction;
+use App\Filament\Resources\Interests\InterestResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ManageRecords;
 
@@ -13,7 +14,7 @@ class ManageInterests extends ManageRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            CreateAction::make(),
         ];
     }
 }

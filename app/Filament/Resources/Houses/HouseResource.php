@@ -1,8 +1,17 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Resources\Houses;
 
-use Filament\Forms\Form;
+use Filament\Schemas\Schema;
+use Filament\Tables\Filters\TrashedFilter;
+use Filament\Actions\EditAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Actions\RestoreBulkAction;
+use App\Filament\Resources\Houses\Pages\ListHouses;
+use App\Filament\Resources\Houses\Pages\CreateHouse;
+use App\Filament\Resources\Houses\Pages\EditHouse;
 use Filament\Tables\Table;
 use Filament\{Forms, Tables};
 use Filament\Resources\Resource;
@@ -18,17 +27,17 @@ class HouseResource extends Resource
 {
     protected static ?string $model = House::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-home-modern';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-home-modern';
 
-    protected static ?string $navigationGroup = 'Product';
+    protected static string | \UnitEnum | null $navigationGroup = 'Product';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Fieldset::make('Details')
+        return $schema
+            ->components([
+                \Filament\Schemas\Components\Fieldset::make('Details')
                     ->schema([
-                        Grid::make(6)->schema([
+                        \Filament\Schemas\Components\Grid::make(6)->schema([
                             TextInput::make('name')
                                 ->required()
                                 ->maxLength(255)
@@ -64,7 +73,7 @@ class HouseResource extends Resource
                                 ->columnSpan(6)
                         ])
                     ]),
-                Fieldset::make('House Photos')
+                \Filament\Schemas\Components\Fieldset::make('House Photos')
                     ->schema([
                         Repeater::make('photos')
                             ->relationship('photos')
@@ -74,7 +83,7 @@ class HouseResource extends Resource
                             ])
                     ])
                     ->columns(1),
-                Fieldset::make('Facilities')
+                \Filament\Schemas\Components\Fieldset::make('Facilities')
                     ->schema([
                         Repeater::make('facilities')
                             ->relationship('facilities')
@@ -87,9 +96,9 @@ class HouseResource extends Resource
                             ])
                     ])
                     ->columns(1),
-                Fieldset::make('Additional')
+                \Filament\Schemas\Components\Fieldset::make('Additional')
                     ->schema([
-                        Grid::make(6)->schema([
+                        \Filament\Schemas\Components\Grid::make(6)->schema([
                             TextArea::make('about')
                                 ->required()
                                 ->columnSpan(6),
@@ -133,16 +142,16 @@ class HouseResource extends Resource
                     ->sortable(),
             ])
             ->filters([
-                Tables\Filters\TrashedFilter::make(),
+                TrashedFilter::make(),
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
+            ->recordActions([
+                EditAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\ForceDeleteBulkAction::make(),
-                    Tables\Actions\RestoreBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                    ForceDeleteBulkAction::make(),
+                    RestoreBulkAction::make(),
                 ]),
             ]);
     }
@@ -157,9 +166,9 @@ class HouseResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListHouses::route('/'),
-            'create' => Pages\CreateHouse::route('/create'),
-            'edit' => Pages\EditHouse::route('/{record}/edit'),
+            'index' => ListHouses::route('/'),
+            'create' => CreateHouse::route('/create'),
+            'edit' => EditHouse::route('/{record}/edit'),
         ];
     }
 

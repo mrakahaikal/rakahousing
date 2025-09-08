@@ -1,14 +1,24 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Resources\MortgageRequests;
 
+use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Wizard\Step;
+use Filament\Tables\Filters\TrashedFilter;
+use Filament\Actions\EditAction;
+use Filament\Actions\Action;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Actions\RestoreBulkAction;
+use App\Filament\Resources\MortgageRequests\Pages\ListMortgageRequests;
+use App\Filament\Resources\MortgageRequests\Pages\CreateMortgageRequest;
+use App\Filament\Resources\MortgageRequests\Pages\EditMortgageRequest;
 use Filament\Forms;
 use Filament\Tables;
-use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Forms\Components\Wizard\Step;
 use Filament\Forms\Components\{Wizard, Grid};
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\{ImageColumn, TextColumn};
@@ -16,24 +26,24 @@ use App\Models\{MortgageRequest, House, Interest, User};
 use App\Filament\Resources\MortgageRequestResource\Pages;
 use Filament\Forms\Components\{Select, TextInput, FileUpload};
 use App\Filament\Resources\MortgageRequestResource\RelationManagers;
-use App\Filament\Resources\MortgageRequestResource\RelationManagers\InstallmentsRelationManager;
+use App\Filament\Resources\MortgageRequests\RelationManagers\InstallmentsRelationManager;
 
 class MortgageRequestResource extends Resource
 {
     protected static ?string $model = MortgageRequest::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-receipt-percent';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-receipt-percent';
 
-    protected static ?string $navigationGroup = 'Transaction';
+    protected static string | \UnitEnum | null $navigationGroup = 'Transaction';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Wizard::make([
+        return $schema
+            ->components([
+                \Filament\Schemas\Components\Wizard::make([
                     Step::make('Product and Price')
                         ->schema([
-                            Grid::make(3)
+                            \Filament\Schemas\Components\Grid::make(3)
                                 ->schema([
                                     Select::make('house_id')
                                         ->label('House')
@@ -241,21 +251,21 @@ class MortgageRequestResource extends Resource
                     })
             ])
             ->filters([
-                Tables\Filters\TrashedFilter::make(),
+                TrashedFilter::make(),
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\Action::make('download')
+            ->recordActions([
+                EditAction::make(),
+                Action::make('download')
                     ->label('Download')
                     ->icon('heroicon-o-arrow-down-tray')
                     ->url(fn(MortgageRequest $record) => asset('storage/' . $record->documents))
                     ->openUrlInNewTab(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\ForceDeleteBulkAction::make(),
-                    Tables\Actions\RestoreBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                    ForceDeleteBulkAction::make(),
+                    RestoreBulkAction::make(),
                 ]),
             ]);
     }
@@ -270,9 +280,9 @@ class MortgageRequestResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListMortgageRequests::route('/'),
-            'create' => Pages\CreateMortgageRequest::route('/create'),
-            'edit' => Pages\EditMortgageRequest::route('/{record}/edit'),
+            'index' => ListMortgageRequests::route('/'),
+            'create' => CreateMortgageRequest::route('/create'),
+            'edit' => EditMortgageRequest::route('/{record}/edit'),
         ];
     }
 
