@@ -13,15 +13,15 @@ class Interest extends Model
         'house_id',
         'bank_id',
         'interest',
-        'duration'
+        'duration',
     ];
 
-    public function house()
+    public function house(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(House::class);
     }
 
-    public function bank()
+    public function bank(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Bank::class);
     }

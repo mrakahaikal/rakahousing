@@ -11,7 +11,7 @@ class HouseFacility extends Model
 
     protected $fillable = [
         'house_id',
-        'facility_id'
+        'facility_id',
     ];
 
     public function house()

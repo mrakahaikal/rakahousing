@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class City extends Model
 {
@@ -13,7 +13,7 @@ class City extends Model
     protected $fillable = [
         'name',
         'slug',
-        'photo'
+        'photo',
     ];
 
     public function setNameAttribute($value)

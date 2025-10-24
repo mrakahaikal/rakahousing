@@ -2,12 +2,21 @@
 
 namespace App\Models;
 
+use App\Traits\HasCurrencyFormatter;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property-read string $formattedTotalTaxAmount
+ * @property-read string $formattedSubTotalAmount
+ * @property-read string $formattedGrandTotalAmount
+ * @property-read string $formattedInsuranceAmount
+ * @property-read string $formattedRemainingLoanAmount
+ */
 class Installment extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasCurrencyFormatter;
 
     protected $fillable = [
         'mortgage_request_id',
@@ -22,7 +31,15 @@ class Installment extends Model
         'remaining_loan_amount',
     ];
 
-    public function mortgageRequest()
+    protected array $currencyColumns = [
+        'total_tax_amount',
+        'sub_total_amount',
+        'grand_total_amount',
+        'insurance_amount',
+        'remaining_loan_amount'
+    ];
+
+    public function mortgageRequest(): BelongsTo
     {
         return $this->belongsTo(MortgageRequest::class);
     }

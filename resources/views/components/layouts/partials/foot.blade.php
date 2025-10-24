@@ -1,0 +1,4 @@
+        @livewireScripts
+        {{$footSlot ?? ''}}
+    </body>
+</html>

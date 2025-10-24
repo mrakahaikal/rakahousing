@@ -2,20 +2,19 @@
 
 namespace App\Filament\Resources\MortgageRequests\RelationManagers;
 
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\CreateAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\ToggleButtons;
+use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Actions\CreateAction;
-use Filament\Actions\EditAction;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
-use Filament\Forms;
-use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Filament\Forms\Components\{ToggleButtons, FileUpload, TextInput, Select, Wizard, Wizard\Step};
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Resources\RelationManagers\RelationManager;
 
 class InstallmentsRelationManager extends RelationManager
 {
@@ -38,6 +37,7 @@ class InstallmentsRelationManager extends RelationManager
                                 ->label('Monthly Payment')
                                 ->options(function () {
                                     $mortgageRequest = $this->getOwnerRecord();
+
                                     return $mortgageRequest ? [$mortgageRequest->monthly_amount => $mortgageRequest->monthly_amount]
                                         : [];
                                 })
@@ -108,21 +108,21 @@ class InstallmentsRelationManager extends RelationManager
                                 ->grouped()
                                 ->icons([
                                     true => 'heroicon-o-check-circle',
-                                    false => 'heroicon-o-x-circle'
+                                    false => 'heroicon-o-x-circle',
                                 ])
                                 ->required(),
                             Select::make('payment_type')
                                 ->label('Payment Type')
                                 ->options([
                                     'Midtrans' => 'Midtrans',
-                                    'Manual' => 'Manual'
+                                    'Manual' => 'Manual',
                                 ])
                                 ->required(),
                             FileUpload::make('proof')
                                 ->label('Payment Proof')
-                                ->image()
+                                ->image(),
 
-                        ])
+                        ]),
 
                 ])
                     ->columnSpan('full')

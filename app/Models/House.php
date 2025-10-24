@@ -2,12 +2,17 @@
 
 namespace App\Models;
 
+use App\Traits\HasCurrencyFormatter;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\{Model, SoftDeletes};
 
+/**
+ * @property-read string $formattedPrice
+ */
 class House extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasCurrencyFormatter;
 
     protected $fillable = [
         'name',
@@ -22,7 +27,11 @@ class House extends Model
         'land_area',
         'building_area',
         'category_id',
-        'city_id'
+        'city_id',
+    ];
+
+    protected array $currencyColumns = [
+        'price',
     ];
 
     public function setNameAttribute($value)

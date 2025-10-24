@@ -2,9 +2,8 @@
 
 namespace App\Filament\Resources\Categories\Pages;
 
-use Filament\Actions\CreateAction;
 use App\Filament\Resources\Categories\CategoryResource;
-use Filament\Actions;
+use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ManageRecords;
 
 class ManageCategories extends ManageRecords

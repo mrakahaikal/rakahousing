@@ -2,9 +2,8 @@
 
 namespace App\Filament\Resources\Cities\Pages;
 
-use Filament\Actions\CreateAction;
 use App\Filament\Resources\Cities\CityResource;
-use Filament\Actions;
+use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ManageRecords;
 
 class ManageCities extends ManageRecords

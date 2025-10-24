@@ -11,6 +11,6 @@ class HousePhoto extends Model
 
     protected $fillable = [
         'house_id',
-        'photo'
+        'photo',
     ];
 }

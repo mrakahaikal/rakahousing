@@ -1,3 +1,22 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-poppins: "Poppins", sans-serif;
+
+    --color-primary: #060922;
+    --color-secondary: #8F91A2;
+    --color-danger: #FF3E3E;
+    --color-success: #CEF27F;
+    --color-info: #3F52FF;
+    --color-warning: #FF9F47;
+    --color-outline: #F2F2F4;
+
+    --color-surface: #FFFFFF;
+    --color-surface-alt: #FAFAFA;
+}
+

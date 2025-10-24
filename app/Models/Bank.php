@@ -11,7 +11,7 @@ class Bank extends Model
 
     protected $fillable = [
         'name',
-        'photo'
+        'photo',
     ];
 
     public function interest()
