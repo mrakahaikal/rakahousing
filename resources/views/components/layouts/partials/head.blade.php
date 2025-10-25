@@ -9,4 +9,4 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     {{$headSlot ?? ''}}
 </head>
-<body class="font-poppins text-[#0A090B]">
+<body class="font-poppins text-primary-alt bg-surface-alt">

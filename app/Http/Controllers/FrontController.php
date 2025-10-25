@@ -13,20 +13,16 @@ use Illuminate\Http\Request;
 
 class FrontController extends Controller
 {
-    protected HouseService $houseService;
-    protected MortgageService $mortgageService;
-
-    public function __construct(HouseService $houseService, MortgageService $mortgageService)
-    {
-        $this->houseService = $houseService;
-        $this->mortgageService = $mortgageService;
-    }
+    public function __construct(
+        protected HouseService $houseService,
+        protected MortgageService $mortgageService
+    ) {}
 
     public function index(): View
     {
         $data = $this->houseService->getCategoriesAndCities();
 
-        return view('front.index', $data);
+        return view('pages.front.home.index', $data);
     }
 
     public function search(Request $request): View
@@ -43,7 +39,14 @@ class FrontController extends Controller
         return view('front.details', $houseDetails);
     }
 
-    public function category(Category $category): View
+    public function category(): View
+    {
+        $category = $this->houseService->getCategoriesAndCities();
+
+        return view('pages.front.category.index', $category);
+    }
+
+    public function categoryDetails(Category $category): View
     {
         $category->load('houses');
 
@@ -58,17 +61,17 @@ class FrontController extends Controller
     public function requestInterest(Request $request): RedirectResponse
     {
         $this->mortgageService->handleInterestRequest($request);
+
         return redirect()->route('front.request_success');
     }
 
     public function requestSuccess(): RedirectResponse|View
     {
         $interest = $this->mortgageService->getInterestFromSession();
-        if(!$interest){
+        if (! $interest) {
             return redirect()->route('front.index')->with('error', 'Invalid request. Please try again.');
         }
+
         return view('customer.mortgages.success-request', compact('interest'));
     }
-
-
 }

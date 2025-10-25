@@ -12,14 +12,10 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    protected MortgageService $mortgageService;
-    protected PaymentService $paymentService;
-
-    public function __construct(MortgageService $mortgageService, PaymentService $paymentService)
-    {
-        $this->mortgageService = $mortgageService;
-        $this->paymentService = $paymentService;
-    }
+    public function __construct(
+        protected MortgageService $mortgageService,
+        protected PaymentService $paymentService
+    ) {}
 
     public function index(): View
     {
